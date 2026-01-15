@@ -63,14 +63,38 @@ function Dashboard() {
     };
 
     const openPdf = async (id: string) => {
-        const res = await fetch(`/api/orders/${id}/pdf`, {
-        headers: { Authorization: `Bearer ${token}` }
-        });
+        // 1. 在 click 當下就先開新分頁（Safari 允許）
+        const newWindow = window.open('', '_blank');
 
-        const blob = await res.blob();
-        const url = window.URL.createObjectURL(blob);
-        window.open(url);
+        if (!newWindow) {
+            alert('瀏覽器阻擋彈出視窗，請允許此網站彈出視窗');
+            return;
+        }
+
+        try {
+            // 2. 再去打有 jwtauth 的 API
+            const res = await fetch(`/api/orders/${id}/pdf`, {
+            headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (!res.ok) {
+            newWindow.close();
+            alert('PDF 產生失敗');
+            return;
+            }
+
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+
+            // ✅ 3. 把已經開好的視窗導向 PDF
+            newWindow.location.href = url;
+
+        } catch (err) {
+            newWindow.close();
+            alert('開啟 PDF 發生錯誤');
+        }
     };
+
 
     const deleteOrder = async (id: string) => {
         if (!confirm("確定要刪除這筆訂單嗎？")) return;

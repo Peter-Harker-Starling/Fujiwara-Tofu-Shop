@@ -10,7 +10,7 @@ type Item = {
 
 function Order() {
 
-      const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [customerName, setCustomerName] = useState('');
     const [phone, setPhone] = useState('');
@@ -63,6 +63,28 @@ function Order() {
     setItems([])
   }
 
+    const generateTimeOptions = (
+      startHour = 6,
+      endHour = 14,
+      intervalMinutes = 30
+    ) => {
+      const times: string[] = [];
+
+        for (let h = startHour; h <= endHour; h++) {
+          for (let m = 0; m < 60; m += intervalMinutes) {
+            if (h === endHour && m > 0) continue;
+
+            const hh = String(h).padStart(2, '0');
+            const mm = String(m).padStart(2, '0');
+            times.push(`${hh}:${mm}`);
+          }
+        }
+
+        return times;
+    };
+
+    const timeOptions = generateTimeOptions(6, 14, 30);
+
 
     return (
         <div className='max-w-xl mx-auto p-4 space-y-4'>
@@ -86,11 +108,14 @@ function Order() {
                         placeholder='地址'
                         value={address}
                         onChange={e => setAddress(e.target.value)}/>
-                <input className='mb-4 border border-gray-300 p-3 h-12 w-full rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all'
-                        type='time'
-                        placeholder='送達時間'
+                <select className='mb-4 border border-gray-300 p-3 h-12 w-full rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all'
                         value={deliveryTime}
-                        onChange={e => setDeliveryTime(e.target.value)}/>
+                        onChange={e => setDeliveryTime(e.target.value)}>
+                    <option value="" disabled>選擇配送時間</option>
+                    {timeOptions.map(time => (
+                        <option key={time} value={time}>{time}</option>
+                    ))}
+                </select>
                 <textarea className='border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all'
                         placeholder='備註'
                         value={note}

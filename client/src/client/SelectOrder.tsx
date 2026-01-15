@@ -56,7 +56,7 @@ function SelectOrder() {
                     <div key={order._id} className="border border-gray-300 rounded-2xl p-4 space-y-2">
                         <div className="flex justify-between">
                             <span className="font-semibold">訂單編號：{order._id.slice(-6)}</span>
-                            <span className="text-sm text-gray-600">{new Date(order.createdAt).toLocaleString()}</span>
+                            <span className="text-sm text-gray-600">{order.deliveryTime}</span>
                         </div>
                         <div className="text-sm text-gray-700">
                             狀態：<span className="font-semibold">{order.status}</span>

@@ -77,27 +77,6 @@ Vite build
 
 ---
 
-##  專案結構（簡化）
-
-.
-├── server
-│ ├── routes
-│ │ ├── orders.js
-│ │ └── admin.js
-│ ├── models
-│ └── utils
-│   └── generateOrderPdf.js
-│
-├── client
-│ ├── src
-│ │ ├── client
-│ │ └── admin
-│ ├── index.html
-│ └── admin.html
-│
-├── README.md
-├── package.json
-
 ## 備註
 - 本專案為學習與展示用途
 - 重點放在 系統設計、資料驗證與前後端整合。# Fujiwara-Tofu-Shop

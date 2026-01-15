@@ -83,7 +83,7 @@ function Order() {
         return times;
     };
 
-    const timeOptions = generateTimeOptions(6, 14, 30);
+    const timeOptions = generateTimeOptions(4, 12, 30);
 
 
     return (

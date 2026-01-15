@@ -121,7 +121,7 @@ function Dashboard() {
                     <div key={order._id} className="bg-white rounded-2xl shadow-lg p-6">
                         <div className="flex justify-between items-center mb-4">
                             <div className="font-semibold text-lg">{order.customerName}（{order.phone}）</div>
-                            <div className="text-gray-500 text-sm ml-2">總金額：${order.totalAmount}</div>
+                            <div className="text-gray-500 text-sm ml-2">${order.totalAmount}</div>
                         </div>
                         <div className="mb-4 space-y-1 text-sm text-gray-700">
                                 {order.items.map(item => (

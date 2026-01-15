@@ -64,8 +64,8 @@ function Order() {
   }
 
     const generateTimeOptions = (
-      startHour = 6,
-      endHour = 14,
+      startHour = 4,
+      endHour = 12,
       intervalMinutes = 30
     ) => {
       const times: string[] = [];

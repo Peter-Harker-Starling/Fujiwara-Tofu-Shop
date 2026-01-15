@@ -86,7 +86,7 @@ function Order() {
                         placeholder='地址'
                         value={address}
                         onChange={e => setAddress(e.target.value)}/>
-                <input className='mb-4 border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all'
+                <input className='border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-base'
                         type='time'
                         placeholder='送達時間'
                         value={deliveryTime}

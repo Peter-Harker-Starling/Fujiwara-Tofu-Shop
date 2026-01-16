@@ -6,6 +6,18 @@
 
 ---
 
+## Live Demo
+
+- **Client（客戶端）**  
+  [https://fujiwara-tofu-shop.onrender.com](https://fujiwara-tofu-shop.onrender.com)
+
+- **Admin Dashboard（後台）**  
+  [https://fujiwara-tofu-shop.onrender.com/admin.html](https://fujiwara-tofu-shop.onrender.com/admin.html)
+
+>  Render free 方案可能需要 **20–40 seconds** 冷啟動喚醒 (cold start).
+
+---
+
 ## Deployment Architecture
 
 本專案採用 **前後端整合部署** 的方式：
@@ -51,7 +63,6 @@ Vite build
 - 建立訂單（後端驗證商品與金額）
 - 輸入電話號碼查詢歷史訂單
 - 即時計算訂單總金額
-- 支援備註與送達時間
 
 ### 管理員端（Admin）
 - 管理員登入（JWT）
@@ -59,6 +70,12 @@ Vite build
 - 更新訂單狀態（準備中 / 已出貨）
 - 刪除訂單
 - 產生並開啟訂單 PDF 明細（需驗證 Token）
+
+---
+
+### Deployment
+- Render (single service for frontend + backend)
+- MongoDB Atlas
 
 ---
 

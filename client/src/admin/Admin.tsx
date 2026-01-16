@@ -26,6 +26,11 @@ function Admin() {
     localStorage.setItem('adminToken', data.token)
 
     navigate('/dashboard')
+
+    if (res.status === 401) {
+      localStorage.removeItem('adminToken');
+      navigate('/');
+    }
   }
 
   return (

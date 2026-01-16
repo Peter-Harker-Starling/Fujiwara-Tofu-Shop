@@ -139,7 +139,7 @@ function Order() {
                                         className='w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center'
                                         onClick={() => handleQtyChange(id as ProductId, Math.max(0, getQty(id as ProductId) - 1))}>−</button>
                                 <input min={0}
-                                       className='border border-gray-300 w-16 text-center p-1 rounded-lg'
+                                       className='border border-gray-300 w-10 text-center p-1 rounded-lg'
                                        value={getQty(id as ProductId)}
                                        onChange={e => handleQtyChange(id as ProductId, Number(e.target.value))}/>
                                 <button type="button"

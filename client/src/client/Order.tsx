@@ -85,6 +85,11 @@ function Order() {
 
     const timeOptions = generateTimeOptions(4, 12, 30);
 
+    const getQty = (productId: ProductId) => {
+      return items.find(i => i.productId === productId)?.qty ?? 0;
+    };
+
+
 
     return (
         <div className='max-w-xl mx-auto p-4 space-y-4'>
@@ -129,20 +134,22 @@ function Order() {
                         <div key={id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-blue-300 transition-colors">
                             <span>{product.name} (${product.price}) / {product.unit}</span>
                             <div className='flex items-center gap-2'>
-                              <button type="button" 
-                                      className='w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center'
-                                      onClick={() => handleQtyChange(id as ProductId, (quantities[id] || 0) - 1)}>-</button>
-                              <input type='number' 
-                                     className='border border-gray-300 w-16 text-center p-1 rounded-lg'
-                                     value={quantities[id] || 0}
-                                     min={0}
-                                     onChange={e => handleQtyChange(id as ProductId, Number(e.target.value))}/>
-                              <button type="button"
-                                      className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center"
-                                      onClick={() => handleQtyChange(id as ProductId, (quantities[id] || 0) + 1)}>+</button>
+                              <div className='flex items-center gap-2'>
+                                <button type="button"
+                                        className='w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center'
+                                        onClick={() => handleQtyChange(id as ProductId, Math.max(0, getQty(id as ProductId) - 1))}>−</button>
+                                <input type='number'
+                                       min={0}
+                                       className='border border-gray-300 w-16 text-center p-1 rounded-lg'
+                                       value={getQty(id as ProductId)}
+                                       onChange={e => handleQtyChange(id as ProductId, Number(e.target.value))}/>
+                                <button type="button"
+                                        className='w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center'
+                                        onClick={() => handleQtyChange(id as ProductId, getQty(id as ProductId) + 1)}>+</button>
+                              </div>
                             </div>
                         </div>
-                    ))}
+                      ))}
                 </div>
             </div>
 

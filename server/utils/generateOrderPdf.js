@@ -23,7 +23,7 @@ function generateOrderPdf(res, order) {
   doc.font('tc');
 
   // --- PDF 內容與你原本的邏輯相同 ---
-  doc.fontSize(14).text('藤原豆腐店 (自家用)', { align: 'center' });
+  doc.fontSize(14).text('藤原とうふ店 (自家用)', { align: 'center' });
   doc.fontSize(8).text('------------------------------------------', { align: 'center' });
   doc.moveDown(0.5);
 

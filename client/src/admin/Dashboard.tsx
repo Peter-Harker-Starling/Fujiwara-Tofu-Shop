@@ -8,26 +8,22 @@ function Dashboard() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [checkingAuth, setCheckingAuth] = useState(true);
 
-    const token = localStorage.getItem('adminToken');
 
-    const logout = () => {
-        localStorage.removeItem("adminToken");
-        navigate("/");
+    const logout = async () => {
+        await fetch('api/admins/logout', {
+            method: 'POST',
+            credentials: 'include'
+        })
+        navigate('/');
     };
 
     useEffect(() => {
 
-        if (!token) {
-        navigate("/");
-        return;
-        }
-
         fetch("/api/orders", {
-        headers: { Authorization: `Bearer ${token}` }
+            credentials: 'include'
         })
         .then(res => {
             if (res.status === 401) {
-            localStorage.removeItem("adminToken");
             navigate("/");
             return Promise.reject();
             }
@@ -51,15 +47,12 @@ function Dashboard() {
     const updateOrderStatus = async (id: string, status: string) => {
         await fetch(`/api/orders/${id}/status`, {
         method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-        },
+        headers: {"Content-Type": "application/json"},
+        credentials: 'include',
         body: JSON.stringify({ status })
         });
 
-        setOrders(prev =>
-        prev.map(order => order._id === id ? { ...order, status } : order));
+        setOrders(prev => prev.map(order => order._id === id ? { ...order, status } : order));
     };
 
     const openPdf = async (id: string) => {
@@ -74,7 +67,7 @@ function Dashboard() {
         try {
             // 2. 再去打有 jwtauth 的 API
             const res = await fetch(`/api/orders/${id}/pdf`, {
-            headers: { Authorization: `Bearer ${token}` }
+                credentials: 'include'
             });
 
             if (!res.ok) {
@@ -101,7 +94,7 @@ function Dashboard() {
 
         await fetch(`/api/orders/${id}`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` }
+        credentials: 'include'
         });
 
         setOrders(prev => prev.filter(order => order._id !== id));

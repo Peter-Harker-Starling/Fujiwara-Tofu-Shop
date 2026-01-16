@@ -41,19 +41,33 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign(
-      {
-        id: admin._id,
-        name: admin.name
-      },
+      { id: admin._id, name: admin.name },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     )
 
-    res.json({ token })
+    res.cookie('admin_token', token, {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60 * 60 * 1000
+    })
+
+    res.json({ success: true })
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
 })
+
+router.post('/logout', (req, res) => {
+  res.clearCookie('admin_token', {
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: process.env.NODE_ENV === 'production'
+  })
+  res.json({ success: true })
+})
+
 
 router.get('/me', jwtauth, async (req, res) => {
   const admin = await Admin.findById(req.user.id).select('-password')

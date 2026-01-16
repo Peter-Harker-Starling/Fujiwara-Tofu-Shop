@@ -14,6 +14,7 @@ function Admin() {
     const res = await fetch('/api/admins/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ name, password })
     })
 
@@ -22,15 +23,8 @@ function Admin() {
       return
     }
 
-    const data = await res.json()
-    localStorage.setItem('adminToken', data.token)
-
     navigate('/dashboard')
 
-    if (res.status === 401) {
-      localStorage.removeItem('adminToken');
-      navigate('/');
-    }
   }
 
   return (

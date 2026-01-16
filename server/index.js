@@ -4,10 +4,12 @@ require('dotenv').config({
   path: path.resolve(__dirname, '../.env')
 });
 const mongoose = require('mongoose');
-const orderRoutes = require('./routes/orders')
-const adminRoutes = require('./routes/admins')
+const cookieParser = require('cookie-parser');
+const orderRoutes = require('./routes/orders');
+const adminRoutes = require('./routes/admins');
 
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use('/api/orders', orderRoutes)
 app.use('/api/admins', adminRoutes)

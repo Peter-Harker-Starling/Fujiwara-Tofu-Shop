@@ -128,9 +128,19 @@ function Order() {
                     {Object.entries(PRODUCTS).map(([id, product]) => (
                         <div key={id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-blue-300 transition-colors">
                             <span>{product.name} (${product.price}) / {product.unit}</span>
-                            <input type="number" min={0}
-                                  className="border border-gray-300 w-20 p-1 rounded-lg hover:border-blue-300 transition-colors"
-                                  onChange={e => handleQtyChange(id as ProductId, Number(e.target.value))}/>
+                            <div className='flex items-center gap-2'>
+                              <button type="button" 
+                                      className='w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center'
+                                      onClick={() => handleQtyChange(id as ProductId, (quantities[id] || 0) - 1)}>-</button>
+                              <input type='number' 
+                                     className='border border-gray-300 w-16 text-center p-1 rounded-lg'
+                                     value={quantities[id] || 0}
+                                     min={0}
+                                     onChange={e => handleQtyChange(id as ProductId, Number(e.target.value))}/>
+                              <button type="button"
+                                      className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center"
+                                      onClick={() => handleQtyChange(id as ProductId, (quantities[id] || 0) + 1)}>+</button>
+                            </div>
                         </div>
                     ))}
                 </div>
